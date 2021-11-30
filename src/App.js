@@ -15,7 +15,7 @@ function reducer(state, { type, payload }) {
   switch (type) {
     case ACTIONS.ADD_DIGIT:
       if (state.overwrite) {
-        return {
+        return { 
           ...state,
           currentOperand: payload.digit,
           overwrite: false,
@@ -94,6 +94,10 @@ function reducer(state, { type, payload }) {
         operation: null,
         currentOperand: evaluate(state),
       }
+
+      // added to fix ESlint warning
+      default:
+      return;
   }
 }
 
@@ -115,6 +119,11 @@ function evaluate({ currentOperand, previousOperand, operation }) {
     case "÷":
       computation = prev / current
       break
+    
+    // added to fix ESlint warning
+    default:
+    return;
+      
   }
 
   return computation.toString()
